@@ -1,0 +1,2 @@
+example.com 192.168.0.1
+anotherdomain.com 192.168.1.1
