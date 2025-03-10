@@ -1,0 +1,52 @@
+Last login: Mon Feb 24 03:13:37 on ttys000
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl create deployment sample-time-app --image=docker.io/iamemily927/sample-time-app:latest
+deployment.apps/sample-time-app created
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl expose deployment/sample-time-app --type="NodePort" --port 8080
+Error from server (AlreadyExists): services "sample-time-app" already exists
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl delete service sample-time-app
+service "sample-time-app" deleted
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl expose deployment/sample-time-app --type="NodePort" --port 8080
+service/sample-time-app exposed
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl get services
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP          55m
+sample-time-app   NodePort    10.98.20.209   <none>        8080:30722/TCP   13s
+(base) chenlin@chenlindeMacBook-Air ~ % minikube i 
+Error: unknown command "i" for "minikube"
+
+Did you mean this?
+	cp
+	image
+	ip
+
+Run 'minikube --help' for usage.
+(base) chenlin@chenlindeMacBook-Air ~ % minikube ip
+192.168.49.2
+(base) chenlin@chenlindeMacBook-Air ~ % minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl get services
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP          58m
+sample-time-app   NodePort    10.98.20.209   <none>        8080:30722/TCP   3m42s
+(base) chenlin@chenlindeMacBook-Air ~ % minikube ip
+192.168.49.2
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+sample-time-app-575948448c-lcccx   1/1     Running   0          5m23s
+(base) chenlin@chenlindeMacBook-Air ~ % kubectl logs sample-time-app-575948448c-lcccx
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 231-449-592
+(base) chenlin@chenlindeMacBook-Air ~ % 
